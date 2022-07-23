@@ -311,6 +311,7 @@ class ExpandableFabState extends State<ExpandableFab>
           duration: duration,
           child: FloatingActionButton(
             heroTag: null,
+            elevation: 0,
             foregroundColor: widget.foregroundColor,
             backgroundColor: widget.backgroundColor,
             onPressed: toggle,
