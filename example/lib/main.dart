@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
         floatingActionButton: ExpandableFab(
           key: _key,
           // duration: const Duration(seconds: 1),
-          // distance: 60.0,
-          // type: ExpandableFabType.up,
+          distance: 60.0,
+          type: ExpandableFabType.up,
           // fanAngle: 70,
           // child: const Icon(Icons.account_box),
           // foregroundColor: Colors.amber,
@@ -58,6 +58,8 @@ class MyApp extends StatelessWidget {
           //   foregroundColor: Colors.deepOrangeAccent,
           //   backgroundColor: Colors.lightGreen,
           // ),
+
+          leftAlign: true,
           overlayStyle: ExpandableFabOverlayStyle(
             color: Colors.black.withOpacity(0.5),
             // blur: 5,

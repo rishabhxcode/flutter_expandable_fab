@@ -51,23 +51,24 @@ class ExpandableFabCloseButtonStyle {
 /// Fab button that can show/hide multiple action buttons with animation.
 @immutable
 class ExpandableFab extends StatefulWidget {
-  const ExpandableFab({
-    Key? key,
-    this.distance = 100,
-    this.duration = const Duration(milliseconds: 250),
-    this.fanAngle = 90,
-    this.initialOpen = false,
-    this.type = ExpandableFabType.fan,
-    this.closeButtonStyle = const ExpandableFabCloseButtonStyle(),
-    this.foregroundColor,
-    this.backgroundColor,
-    this.child = const Icon(Icons.menu),
-    this.childrenOffset = const Offset(8, 8),
-    required this.children,
-    this.onOpen,
-    this.onClose,
-    this.overlayStyle,
-  }) : super(key: key);
+  const ExpandableFab(
+      {Key? key,
+      this.distance = 100,
+      this.duration = const Duration(milliseconds: 250),
+      this.fanAngle = 90,
+      this.initialOpen = false,
+      this.type = ExpandableFabType.fan,
+      this.closeButtonStyle = const ExpandableFabCloseButtonStyle(),
+      this.foregroundColor,
+      this.backgroundColor,
+      this.child = const Icon(Icons.menu),
+      this.childrenOffset = const Offset(8, 8),
+      required this.children,
+      this.onOpen,
+      this.onClose,
+      this.overlayStyle,
+      this.leftAlign = false})
+      : super(key: key);
 
   /// Distance from children.
   final double distance;
@@ -110,6 +111,8 @@ class ExpandableFab extends StatefulWidget {
 
   /// Provides the style for overlay. No overlay when null.
   final ExpandableFabOverlayStyle? overlayStyle;
+
+  final bool leftAlign;
 
   @override
   State<ExpandableFab> createState() => ExpandableFabState();
@@ -165,14 +168,15 @@ class ExpandableFabState extends State<ExpandableFab>
 
   void _init() {
     _controller.duration = widget.duration;
-    const offset = Offset(-16, -16);
+    Offset offset = widget.leftAlign ? Offset(16, -16) : Offset(-16, -16);
     final blur = widget.overlayStyle?.blur;
     final overlayColor = widget.overlayStyle?.color;
     _overlayEntry = OverlayEntry(
       builder: (context) => GestureDetector(
         onTap: () => toggle(),
         child: Stack(
-          alignment: Alignment.bottomRight,
+          alignment:
+              widget.leftAlign ? Alignment.bottomLeft : Alignment.bottomRight,
           clipBehavior: Clip.none,
           children: [
             if (blur != null)
@@ -254,6 +258,11 @@ class ExpandableFabState extends State<ExpandableFab>
     final children = <Widget>[];
     final count = widget.children.length;
     final step = widget.fanAngle / (count - 1);
+    Offset childrenOffset = widget.childrenOffset;
+    if (widget.leftAlign == true) {
+      double width = MediaQuery.of(context).size.width;
+      childrenOffset = Offset(width - 52, 0);
+    }
     for (var i = 0; i < count; i++) {
       final double dir, dist;
       switch (widget.type) {
@@ -275,7 +284,7 @@ class ExpandableFabState extends State<ExpandableFab>
           directionInDegrees: dir + (90 - widget.fanAngle) / 2,
           maxDistance: dist,
           progress: _expandAnimation,
-          offset: widget.childrenOffset - offset,
+          offset: childrenOffset - offset,
           child: widget.children[i],
         ),
       );
