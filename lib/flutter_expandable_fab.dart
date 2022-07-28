@@ -288,24 +288,14 @@ class ExpandableFabState extends State<ExpandableFab>
     final duration = widget.duration;
     return IgnorePointer(
       ignoring: _open,
-      child: AnimatedContainer(
-        transformAlignment: Alignment.center,
-        transform: Matrix4.diagonal3Values(
-          0.7,
-          0.7,
-          1.0,
-        ),
+      child: AnimatedOpacity(
+        opacity: _open ? 0.0 : 1.0,
+        curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
         duration: duration,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
-        child: AnimatedOpacity(
-          opacity: _open ? 0.0 : 1.0,
-          curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
+        child: AnimatedRotation(
           duration: duration,
-          child: AnimatedRotation(
-            duration: duration,
-            turns: _open ? -0.5 : 0,
-            child: widget.child,
-          ),
+          turns: _open ? -0.5 : 0,
+          child: widget.child,
         ),
       ),
     );
