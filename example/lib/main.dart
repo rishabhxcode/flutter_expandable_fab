@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
           key: _key,
           // duration: const Duration(seconds: 1),
           distance: 60.0,
+          offset: Offset(4, -4),
           type: ExpandableFabType.up,
           // fanAngle: 70,
           // child: const Icon(Icons.account_box),

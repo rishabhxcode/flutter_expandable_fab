@@ -51,24 +51,25 @@ class ExpandableFabCloseButtonStyle {
 /// Fab button that can show/hide multiple action buttons with animation.
 @immutable
 class ExpandableFab extends StatefulWidget {
-  const ExpandableFab(
-      {Key? key,
-      this.distance = 100,
-      this.duration = const Duration(milliseconds: 250),
-      this.fanAngle = 90,
-      this.initialOpen = false,
-      this.type = ExpandableFabType.fan,
-      this.closeButtonStyle = const ExpandableFabCloseButtonStyle(),
-      this.foregroundColor,
-      this.backgroundColor,
-      this.child = const Icon(Icons.menu),
-      this.childrenOffset = const Offset(8, 8),
-      required this.children,
-      this.onOpen,
-      this.onClose,
-      this.overlayStyle,
-      this.leftAlign = false})
-      : super(key: key);
+  const ExpandableFab({
+    Key? key,
+    this.distance = 100,
+    this.duration = const Duration(milliseconds: 250),
+    this.fanAngle = 90,
+    this.initialOpen = false,
+    this.type = ExpandableFabType.fan,
+    this.closeButtonStyle = const ExpandableFabCloseButtonStyle(),
+    this.foregroundColor,
+    this.backgroundColor,
+    this.child = const Icon(Icons.menu),
+    this.childrenOffset = const Offset(8, 8),
+    required this.children,
+    this.onOpen,
+    this.onClose,
+    this.overlayStyle,
+    this.leftAlign = false,
+    required this.offset,
+  }) : super(key: key);
 
   /// Distance from children.
   final double distance;
@@ -113,6 +114,8 @@ class ExpandableFab extends StatefulWidget {
   final ExpandableFabOverlayStyle? overlayStyle;
 
   final bool leftAlign;
+
+  final Offset offset;
 
   @override
   State<ExpandableFab> createState() => ExpandableFabState();
@@ -168,7 +171,7 @@ class ExpandableFabState extends State<ExpandableFab>
 
   void _init() {
     _controller.duration = widget.duration;
-    Offset offset = widget.leftAlign ? Offset(16, -16) : Offset(-16, -16);
+    Offset offset = widget.leftAlign ? widget.offset : Offset(-16, -16);
     final blur = widget.overlayStyle?.blur;
     final overlayColor = widget.overlayStyle?.color;
     _overlayEntry = OverlayEntry(
@@ -299,8 +302,8 @@ class ExpandableFabState extends State<ExpandableFab>
       child: AnimatedContainer(
         transformAlignment: Alignment.center,
         transform: Matrix4.diagonal3Values(
-          _open ? 0.7 : 1.0,
-          _open ? 0.7 : 1.0,
+          0.7,
+          0.7,
           1.0,
         ),
         duration: duration,
