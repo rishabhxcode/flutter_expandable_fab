@@ -243,13 +243,7 @@ class ExpandableFabState extends State<ExpandableFab>
   }
 
   Widget _buildTapToCloseFab() {
-    return SizedBox(
-      width: 56.0,
-      height: 56.0,
-      child: Center(
-        child: widget.closeWidget,
-      ),
-    );
+    return widget.closeWidget;
   }
 
   List<Widget> _buildExpandingActionButtons(Offset offset) {
