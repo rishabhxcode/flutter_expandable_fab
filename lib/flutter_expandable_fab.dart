@@ -312,17 +312,10 @@ class ExpandableFabState extends State<ExpandableFab>
           opacity: _open ? 0.0 : 1.0,
           curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
           duration: duration,
-          child: FloatingActionButton(
-            heroTag: null,
-            elevation: 0,
-            foregroundColor: widget.foregroundColor,
-            backgroundColor: widget.backgroundColor,
-            onPressed: toggle,
-            child: AnimatedRotation(
-              duration: duration,
-              turns: _open ? -0.5 : 0,
-              child: widget.child,
-            ),
+          child: AnimatedRotation(
+            duration: duration,
+            turns: _open ? -0.5 : 0,
+            child: widget.child,
           ),
         ),
       ),
