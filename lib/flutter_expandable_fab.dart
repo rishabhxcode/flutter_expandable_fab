@@ -251,10 +251,10 @@ class ExpandableFabState extends State<ExpandableFab>
     final count = widget.children.length;
     final step = widget.fanAngle / (count - 1);
     Offset childrenOffset = widget.childrenOffset;
-    // if (widget.leftAlign == true) {
-    //   double width = MediaQuery.of(context).size.width;
-    //   childrenOffset = Offset(width - 52, 0);
-    // }
+    if (widget.leftAlign == true) {
+      double width = MediaQuery.of(context).size.width;
+      childrenOffset = Offset(width - childrenOffset.dx, childrenOffset.dy);
+    }
     for (var i = 0; i < count; i++) {
       final double dir, dist;
       switch (widget.type) {
