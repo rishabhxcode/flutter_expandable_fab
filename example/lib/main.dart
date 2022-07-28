@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
           distance: 60.0,
           offset: Offset(4, -4),
           type: ExpandableFabType.up,
+          closeWidget: const Icon(Icons.close),
           // fanAngle: 70,
           // child: const Icon(Icons.account_box),
           // foregroundColor: Colors.amber,

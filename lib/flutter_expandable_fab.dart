@@ -69,6 +69,7 @@ class ExpandableFab extends StatefulWidget {
     this.overlayStyle,
     this.leftAlign = false,
     required this.offset,
+    required this.closeWidget,
   }) : super(key: key);
 
   /// Distance from children.
@@ -116,6 +117,7 @@ class ExpandableFab extends StatefulWidget {
   final bool leftAlign;
 
   final Offset offset;
+  final Widget closeWidget;
 
   @override
   State<ExpandableFab> createState() => ExpandableFabState();
@@ -241,18 +243,11 @@ class ExpandableFabState extends State<ExpandableFab>
   }
 
   Widget _buildTapToCloseFab() {
-    final style = widget.closeButtonStyle;
     return SizedBox(
       width: 56.0,
       height: 56.0,
       child: Center(
-        child: FloatingActionButton.small(
-          heroTag: null,
-          foregroundColor: style.foregroundColor,
-          backgroundColor: style.backgroundColor,
-          onPressed: toggle,
-          child: style.child,
-        ),
+        child: widget.closeWidget,
       ),
     );
   }
